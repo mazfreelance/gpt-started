@@ -64,13 +64,15 @@ export default function Home() {
           </div>
         </form>
         { quoteLoading && 
-          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black">
-            <AiOutlineLoading3Quarters/>
-          </svg>
+          <div className="flex items-center justify-center mt-3">
+            <div className="border border-t-8 border-blue-200 rounded-full w-10 h-10 animate-spin"></div>
+          </div>
         }
         { quoteLoadingError && "Something went wrong. Please try again."}
         { quote && 
-          <h5 className="font-bold text-md mt-2">{quote}</h5>
+          <blockquote className="border-l-4 border- border-sky-500 p-4 my-4">
+            <p className="italic font-medium text-lg">{quote}</p>
+          </blockquote>
         }
       </main>
     </>
