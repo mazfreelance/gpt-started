@@ -25,3 +25,9 @@ pnpm dev
 - React Icon
 - Tailwind CSS
 - OpenAI
+
+## References
+- [NextJS](https://nextjs.org/)
+- [OpenAI API](https://platform.openai.com/docs/api-reference)
+- [React Icon](https://react-icons.github.io/)
+- [Tailwind CSS](https://tailwindcss.com/)
