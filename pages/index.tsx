@@ -44,37 +44,75 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col items-center m-auto pl-16 pt-4 min-w-[600px] text-center">
-        <h1 className="text-3xl">Dark Jokes AI</h1>
-        <h2 className="text-lg">powered by GPT-3</h2>
-        <div>
-          Enter a topic and the AI will generate a dark jokes.
+      <section className="bg-gray-50">
+        <div className="p-8 md:p-12 lg:px-16 lg:py-24">
+          <div className="mx-auto max-w-lg text-center">
+            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
+            Dark Jokes AI <sub className=' text-sm'>powered by GPT-3</sub>
+            </h2>
+
+            <p className="hidden text-gray-500 sm:mt-4 sm:block">
+            Enter a topic and the AI will generate a dark jokes.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-8 max-w-xl">
+            <form className="sm:flex sm:gap-4" onSubmit={ handleSubmit }>
+              <div className="sm:flex-1">
+                <label className="sr-only">Email</label>
+
+                <input
+                  id="prompt" 
+                  name='prompt' 
+                  type="text" 
+                  placeholder="eg: potatoes, cat, ..." 
+                  maxLength={100}
+                  className="w-full rounded-md border-gray-200 bg-white p-3 text-gray-700 shadow-sm transition focus:border-white focus:outline-none focus:ring focus:ring-yellow-400"
+                />
+              </div>
+
+              <button
+                disabled={quoteLoading}
+                type="submit"
+                className="group mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-blue-500 hover:bg-blue-700 px-5 py-3 text-white transition focus:outline-none focus:ring focus:ring-yellow-400 sm:mt-0 sm:w-auto"
+              >
+                <span className="text-sm font-medium"> Generate </span>
+
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </button>
+            </form>
+            
+            { quoteLoading && 
+              <div className="flex items-center justify-center mt-3">
+                <div className="border border-t-8 border-blue-200 rounded-full w-10 h-10 animate-spin"></div>
+              </div>
+            }
+            { quoteLoadingError && 
+              <div className="flex items-center justify-center mt-3">
+              "Something went wrong. Please try again."
+            </div>}
+            { quote && 
+              <blockquote className="border-l-4 border- border-sky-500 p-4 my-4">
+                <p className="italic font-medium text-lg">{quote}</p>
+              </blockquote>
+            }
+          </div>
+          
         </div>
-        <form className="w-full max-w-lg" onSubmit={ handleSubmit }>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              Create dark jokes quote about...
-            </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="prompt" name='prompt' type="text" placeholder="eg: potatoes, cat, ..." maxLength={100}/>
-          </div>
-          <div className="flex items-center justify-center">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" disabled={quoteLoading}>
-              Generate
-            </button>
-          </div>
-        </form>
-        { quoteLoading && 
-          <div className="flex items-center justify-center mt-3">
-            <div className="border border-t-8 border-blue-200 rounded-full w-10 h-10 animate-spin"></div>
-          </div>
-        }
-        { quoteLoadingError && "Something went wrong. Please try again."}
-        { quote && 
-          <blockquote className="border-l-4 border- border-sky-500 p-4 my-4">
-            <p className="italic font-medium text-lg">{quote}</p>
-          </blockquote>
-        }
-      </main>
+      </section>
     </>
   )
 }
