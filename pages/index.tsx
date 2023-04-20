@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { FormEvent, useState } from 'react'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Navigation from '@/components/layouts/Navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -44,14 +45,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navigation/>
       <section className="bg-gray-50">
         <div className="p-8 md:p-12 lg:px-16 lg:py-24">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
-            Dark Jokes AI <sub className=' text-sm'>powered by GPT-3</sub>
+            Dark Jokes AI
             </h2>
 
-            <p className="hidden text-gray-500 sm:mt-4 sm:block">
+            <p className="text-gray-500 xs:mt-10 mt-4">
             Enter a topic and the AI will generate a dark jokes.
             </p>
           </div>
