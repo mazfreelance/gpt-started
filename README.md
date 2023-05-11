@@ -11,7 +11,19 @@
 
 > setup environment
 ```env
-OPENAI_API_KEY=
+AUTH0_SECRET=
+AUTH0_BASE_URL=
+AUTH0_ISSUER_BASE_URL=
+AUTH0_CLIENT_ID=
+AUTH0_CLIENT_SECRET=
+
+# in future
+MONGODB_URI=
+
+# in future
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
 ```
 Using the official [OpenAI](https://openai.com/api/) API. Get your [API key](https://beta.openai.com/account/api-keys)
 
