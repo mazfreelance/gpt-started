@@ -1,4 +1,11 @@
-# Dark Jokes GPT
+# GPT Started
+![GPT Started](public/gptstarted.PNG)
+# Feature
+- Generate dark jokes
+- Authentication module
+- TailwindCSS training
+- ...
+
 
 # Setup 
 
