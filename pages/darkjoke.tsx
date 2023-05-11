@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import React, { FormEvent, useState } from 'react'
 
 export default function DarkJoke() {
@@ -18,15 +19,21 @@ export default function DarkJoke() {
                 setQuoteLoadingErrorMsg("")
                 setQuoteLoading(true)
 
-                const response = await fetch("/api/openai/completion?prompt=" + encodeURIComponent(prompt))
+                const response = await fetch("/api/openai/completion?prompt=" + encodeURIComponent(prompt), {
+                    method: "POST",
+                    body: JSON.stringify({
+                        apikey: localStorage.getItem('openaikey')
+                    }),
+                })
                 const body = await response.json()
                 setQuote(body.quote)
+                
+                if(body?.error) {
+                    setQuoteLoadingError(true)
+                    setQuoteLoadingErrorMsg(body.message)
+                    setQuoteLoading(false)
+                }
             } catch (error : any) {
-                console.log("🚀 ~ file: darkjoke.tsx:23 ~ handleSubmit ~ error:", error)
-                console.log("🚀 ~ file: darkjoke.tsx:24 ~ handleSubmit ~ error:", error.name)
-                console.log("🚀 ~ file: darkjoke.tsx:25 ~ handleSubmit ~ error:", error.message)
-                console.log("🚀 ~ file: darkjoke.tsx:26 ~ handleSubmit ~ error:", error.stack)
-                console.log("🚀 ~ file: darkjoke.tsx:26 ~ handleSubmit ~ error:", error.code)
                 setQuoteLoadingError(true)
                 setQuoteLoadingErrorMsg(error.message)
                 setQuoteLoading(false)
@@ -61,7 +68,7 @@ export default function DarkJoke() {
                         placeholder="eg: potatoes, cat, ..." 
                         maxLength={100}
                         className="w-full rounded-md border-gray-200 bg-white p-3 text-gray-700 shadow-sm transition focus:border-white focus:outline-none focus:ring focus:ring-yellow-400"
-                        />
+                        required/>
                     </div>
 
                     <button
@@ -91,7 +98,7 @@ export default function DarkJoke() {
                     </div>
                     }
                     { quoteLoadingError && 
-                    <div className="flex items-center justify-center mt-3">
+                    <div className="flex items-center justify-center mt-3 text-red-500">
                     { quoteLoadingErrorMsg ?? "Something went wrong. Please try again." }
                     </div>}
                     { quote && 
@@ -104,3 +111,9 @@ export default function DarkJoke() {
         </section>
     )
 }
+
+export const getServerSideProps = withPageAuthRequired(() => {
+    return {
+        props: {},
+    };
+});

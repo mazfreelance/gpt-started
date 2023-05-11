@@ -1,13 +1,36 @@
+import { SettingModal } from "@/components/SettingModal";
 import User from "@/components/user"
 import { useUser } from "@auth0/nextjs-auth0/client"
+import { useState } from "react";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export default function Home() {
   const { user } = useUser()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   return (
     <section className="bg-gray-50">
       <div className="p-8 md:p-12 lg:px-16 lg:py-24">
         {!! user ? (
-          <User user={user}/>
+          <>
+            <User user={user}/>
+            <div className="flex items-center justify-center">
+              <button
+                onClick={handleModalOpen}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Settings&nbsp;<IoSettingsOutline/>
+              </button>
+              <SettingModal isOpen={isModalOpen} onClose={handleModalClose}/>
+            </div>
+          </>
         ) : (
           <div className="relative flex items-center justify-center py-16 bg-gray-50 sm:py-24 lg:py-32 mb-16">
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600 lime:from-neutral-700 dark:to-neutral-800"
