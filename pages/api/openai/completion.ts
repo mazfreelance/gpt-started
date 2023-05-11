@@ -37,6 +37,9 @@ export default async function handler(
     presence_penalty: 0,
     frequency_penalty: 0,
   })
+  const data = completion.data
+  console.log("🚀 ~ file: completion.ts:41 ~ data:", data)
+  return res.status(200).json({ data })
 
   const quote = completion.data.choices[0].text;
   
