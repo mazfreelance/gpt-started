@@ -2,10 +2,20 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Head from 'next/head';
+import { SettingModal } from '../SettingModal';
 
 function Navigation() {
     const [isNavOpen, setIsNavOpen] = useState(false); // initiate isNavOpen state with false
     const { user } = useUser()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    };
     return (
         <>
             <Head>
@@ -54,6 +64,9 @@ function Navigation() {
                                 <li className="border-b border-gray-400 my-2 uppercase">
                                     <Link href="/darkjoke">Dark Jokes</Link>
                                 </li>
+                                <li className={!user ? 'hidden': 'border-b border-gray-400 my-2 uppercase'}>
+                                    <Link href="#" onClick={handleModalOpen}>Settings</Link>
+                                </li>
                                 <li className="border-b border-gray-400 my-2 uppercase">
                                     {!! user ? (
                                         <Link href="/api/auth/logout">Logout</Link>
@@ -70,6 +83,9 @@ function Navigation() {
                         <li>
                             <Link href="/darkjoke">Dark Jokes</Link>
                         </li>
+                        <li className={!user ? 'hidden': ''}>
+                            <Link href="#" onClick={handleModalOpen}>Settings</Link>
+                        </li>
                         <li>
                             {!! user ? (
                                 <Link href="/api/auth/logout">Logout</Link>
@@ -79,6 +95,7 @@ function Navigation() {
                         </li>
                     </ul>
                 </nav>
+                <SettingModal isOpen={isModalOpen} onClose={handleModalClose}/>
                 <style>{ `
                 .hideMenuNav {
                     display: none;

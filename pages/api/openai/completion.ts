@@ -41,6 +41,9 @@ export default async function handler(
     
     return res.status(200).json({ quote })
   } catch (error : any) {
-    return res.status(error.response.status).json({ error: true, message:error.response.data.error.message, openaikey})
+    const status = error.response.status
+    let message = error.response.data.error.message
+    if(status == 401) message = 'Unauthorized: Invalid API key'
+    return res.status(status).json({ error: true, message: message})
   }
 }
