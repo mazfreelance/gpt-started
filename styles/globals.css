@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 a:hover {
-    color: blue;
+    color: rgb(60, 110, 218);
 }

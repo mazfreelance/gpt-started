@@ -112,8 +112,4 @@ export default function DarkJoke() {
     )
 }
 
-export const getServerSideProps = withPageAuthRequired(() => {
-    return {
-        props: {},
-    };
-});
+export const getServerSideProps = withPageAuthRequired();
